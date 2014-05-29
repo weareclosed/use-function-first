@@ -8,6 +8,7 @@ https://www.youtube.com/watch?v=m3svKOdZijA
 // underscore style
 
 var _ = require('underscore');
+
 var mapFirstTwo = function(data){
     return _.map(data, function(item){
         return _.first(item, 2);
@@ -15,6 +16,8 @@ var mapFirstTwo = function(data){
 };
 
 // scoreunder style
+
+var use = require('scoreunder');
 
 var mapFirstTwo = use(function(map, first){
     return map(first(2));
