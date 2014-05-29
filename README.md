@@ -1,13 +1,30 @@
 Data last
 ---------
 
+
+    // underscore style
+    
+    var _ = require('underscore');
+    var mapFirstTwo = function(data){
+        return _.map(data, function(item){
+            return _.first(item, 2);
+        });
+    };
+
+    // scoreunder style
+
     var mapFirstTwo = use(function(map, first){
         return map(first(2));
     }, require('underscore'));
 
-    mapFirstTwo([11,22,33,44]); // [11,22]
+    // 
 
+    var mapFirstTwo = use(['map first', 2], require('underscore'));
 
-    function use(/** function|string */what, /** ...object */fromObject){
+    // usage
 
-    }
+    mapFirstTwo(["one","two","three"]); // ["on","tw","th"]
+
+    // 
+
+    function use(/** function|string|Array */what, /** ...object */fromObject){}
