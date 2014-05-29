@@ -1,5 +1,5 @@
-Data last
----------
+Data last, callback first
+-------------------------
 
 https://thenewcircle.com/s/post/1468/hey_underscore_you_are_doing_it_wrong_brian_lonsdorf  
 https://www.youtube.com/watch?v=m3svKOdZijA
