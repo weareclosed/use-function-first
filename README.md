@@ -5,7 +5,7 @@ Data last
         return map(first(2));
     }, require('underscore'));
 
-    mapFirstTwo([11,22,33,44]);
+    mapFirstTwo([11,22,33,44]); // [11,22]
 
 
     function use(/** function|string */what, /** ...object */fromObject){
