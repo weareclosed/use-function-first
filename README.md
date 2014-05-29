@@ -1,6 +1,9 @@
 Data last
 ---------
 
+https://thenewcircle.com/s/post/1468/hey_underscore_you_are_doing_it_wrong_brian_lonsdorf
+https://www.youtube.com/watch?v=m3svKOdZijA
+
 
     // underscore style
     
@@ -21,10 +24,10 @@ Data last
 
     var mapFirstTwo = use(['map first', 2], require('underscore'));
 
-    // usage
+    // result
 
     mapFirstTwo(["one","two","three"]); // ["on","tw","th"]
 
     // 
 
-    function use(/** function|string|Array */what, /** ...object */fromObject){}
+    function use(/** function|string|Array */ what, /** ...object */ fromObject){}
