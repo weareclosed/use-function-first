@@ -1,46 +1,65 @@
-module.exports = use;
+module.exports = pipe;
 
 var curry = require("curry");
 
-function use(/** function|string|Array */ what, /** ...object */ fromObject){
+function pipe(/** function|string|Array */ what, /** ...object */ fromObject){
     var whatFn, whatArray;
     var fromObjects = Array.prototype.slice.apply(arguments, 1);
 
     if( typeof what === 'function' ){
         whatFn = what;
         whatArray = getArgNames( whatFn );
-        
+
     }else if( what instanceof Array ){
         whatArray = what;
-        
-    }else{
-        
-        
+
+    }else if( typeof what === 'string' ){
+        whatArray = what.split( /\s+/ );
     }
-    
+
+    var adaptedFns = adaptFns( whatArray, fromObjects );
+
+    if(!whatFn ){
+        whatFn = makeFnFromMethodNames( whatArray, adaptedFns );
+    }
+
+    return curry( function(){
+        return whatFn.apply(this, adaptedFns);
+    } );
+}
+
+function makeFnFromMethodNames( methodNames, lib ){
+
+
+}
+
+function adaptFns( whatArray, fromObjects ){
+
     var adaptedFns = new Array( whatArray.lenght );
-    
+
     whatArray.forEach(function( name, i ){
-        var fn = find(name, fromObject);
+        var fn = find(name, fromObjects);
         if( fn ){
             adaptedFns[ i ] = adapt( fn );
         }
     });
-    
-    //whatFn.apply(null, adaptedFns)
-    
-    function find(id, objects){
-        objects.any(function(obj){
-            return id in obj;
-        });
-    }
-    
-    function adapt( fn ){
-        return curry.adapt( fn );
-    }
+
+    return adaptedFns;
 }
 
+function find(id, objects){
+    return objects.any(function(obj){
+        var fn = obj[ id ];
+        if(typeof fn === 'function'){
+            fn = fn.protoype;
+        }
+        return fn;
+    });
+}
 
+function adapt( fn ){
+    return curry.adapt( fn );
+}
 
 /**
  * Parses a function and returns an array of its parameters
