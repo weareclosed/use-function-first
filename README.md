@@ -5,7 +5,7 @@ https://thenewcircle.com/s/post/1468/hey_underscore_you_are_doing_it_wrong_brian
 https://www.youtube.com/watch?v=m3svKOdZijA
 
 ```javascript
-// underscore style
+// Underscore style
 
 var _ = require('underscore');
 
@@ -15,23 +15,39 @@ var mapFirstTwo = function(data){
     });
 };
 
-// scoreunder style
-
-var use = require('scoreunder');
+// Aqueduct style
+// 1
+var use = require('Aqueduct');
+var underscore = require('underscore');
 
 var mapFirstTwo = use(function(map, first){
-    return map(first(2));
-}, require('underscore'));
+    return map( first (2));
+}, underscore);
 
-// 
+// 2
+var pipe = require('Aqueduct');
+var underscore = require('underscore');
 
-var mapFirstTwo = use(['map first', 2], require('underscore'));
+var mapFirstTwo = pipe(['map', 'first', 2], underscore);
 
 // result
 
 mapFirstTwo(["one","two","three"]); // ["on","tw","th"]
 
-// 
+// 3
 
-function use(/** function|string|Array */ what, /** ...object */ fromObject){}
+var filterFiles = pipe(
+    'readdir filter isFile',
+    require('fs'),
+    Array, 
+    {isFile: function( fileName, callback ){
+        
+    }}
+);
+var filterFiles = pipe(function(isFile, filter, readdir, _){
+    return _(isFile)( filter( readdir ) );
+    function isFile(fileName){}
+}, require('fs'), Array);
+filterFiles("./");
+
 ```
