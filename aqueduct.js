@@ -2,6 +2,7 @@ module.exports = pipe;
 
 var curry = require("curry");
 
+/** Compose, curry and reverse arguments in passed as array (or space-separated string) functions from some object(s). */
 function pipe(/** function|string|Array */ what, /** ...object */ fromObject){
     var whatFn, whatArray;
     var fromObjects = Array.prototype.slice.apply(arguments, 1);
