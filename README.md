@@ -15,9 +15,9 @@ var mapFirstTwo = function(data){
     });
 };
 
-// Aqueduct style
+// useFn style
 // 1
-var use = require('Aqueduct');
+var use = require('useFn');
 var underscore = require('underscore');
 
 var mapFirstTwo = use(function(map, first){
@@ -25,10 +25,10 @@ var mapFirstTwo = use(function(map, first){
 }, underscore);
 
 // 2
-var pipe = require('Aqueduct');
+var createFn = require('useFn');
 var underscore = require('underscore');
 
-var mapFirstTwo = pipe(['map', 'first', 2], underscore);
+var mapFirstTwo = createFn(['map', 'first', 2], underscore);
 
 // result
 
@@ -36,18 +36,15 @@ mapFirstTwo(["one","two","three"]); // ["on","tw","th"]
 
 // 3
 
-var filterFiles = pipe(
-    'readdir filter isFile',
+var filterFiles = createFn(
+    'readdir filter filesOnly',
     require('fs'),
     Array, 
-    {isFile: function( fileName, callback ){
+    {filesOnly: function( fileName, callback ){
         
     }}
 );
-var filterFiles = pipe(function(isFile, filter, readdir, _){
-    return _(isFile)( filter( readdir ) );
-    function isFile(fileName){}
-}, require('fs'), Array);
+
 filterFiles("./");
 
 ```
