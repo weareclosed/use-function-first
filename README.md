@@ -1,7 +1,8 @@
 Use Function First
 ------------------
 
-This is Functional Programming tool to compose data-first/callback-last styled functions.
+This is Functional Programming tool to compose data-first/callback-last styled functions.  
+It's a one of the ways to get rid from [callback hell](http://callbackhell.com).
 
 Inspired by:  
 [![Youtube video](http://img.youtube.com/vi/m3svKOdZijA/0.jpg)](http://www.youtube.com/watch?v=m3svKOdZijA)
