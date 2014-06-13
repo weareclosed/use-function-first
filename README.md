@@ -4,8 +4,8 @@ Use Function First
 This is Functional Programming tool to compose data-first/callback-last styled functions.
 
 Inspired by:  
+[![Youtube video](http://img.youtube.com/vi/m3svKOdZijA/0.jpg)](http://www.youtube.com/watch?v=m3svKOdZijA)
 https://thenewcircle.com/s/post/1468/hey_underscore_you_are_doing_it_wrong_brian_lonsdorf  
-https://www.youtube.com/watch?v=m3svKOdZijA
 
 #### Underscore style (Data First / Callback Last)
 
@@ -18,6 +18,7 @@ var mapFirstTwo = function(data){
     });
 };
 ```
+As alternative for that style is the
 
 #### Function First / Data Last style
 
