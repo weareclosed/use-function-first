@@ -1,9 +1,17 @@
+/**
+ * Functional Programming tool to compose data-first/callback-last styled functions.
+ * @copyright https://github.com/quadroid/use-function-first/
+ */
 module.exports = use;
 
 use.curry = curry;
-use.callbackFirst = callbackFirst;
+use.functionFirst = functionFirst;
 
-/** Compose, curry and pop up last argument in passed as array (or space-separated string) functions from some object(s). */
+/**
+ * Compose, curry and pop up last argument
+ * in passed as array (or space-separated string)
+ * methods of some object(s).
+ */
 function use(/** function|string|Array */ what, /** ...object */ fromObject){
     var useFn, useNames;
     var fromObjects = Array.prototype.slice.call(arguments, 1);
@@ -41,7 +49,7 @@ function use(/** function|string|Array */ what, /** ...object */ fromObject){
 
     function adaptMethods( names, objects ){
         return names.map(function( name ){
-            return callbackFirst( findMethod(name, objects) );
+            return functionFirst( findMethod(name, objects) );
         });
     }
         function findMethod(name, objects){
@@ -56,8 +64,8 @@ function use(/** function|string|Array */ what, /** ...object */ fromObject){
             }
         }
 
-        /** Move last argument to the first place */
-        function callbackFirst( fn ){
+        /** Move last argument to the first place. And curry. */
+        function functionFirst( fn ){
             switch( fn.length ){
                 case 0: return fn;
                 case 1: return curry(fn);

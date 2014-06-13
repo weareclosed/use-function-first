@@ -1,12 +1,15 @@
-Data last, callback first
--------------------------
+Use Function First!
+-------------------
 
+This is Functional Programming tool to compose data-first/callback-last styled functions.
+
+Inspired by:  
 https://thenewcircle.com/s/post/1468/hey_underscore_you_are_doing_it_wrong_brian_lonsdorf  
 https://www.youtube.com/watch?v=m3svKOdZijA
 
-```javascript
-// Underscore style
+### Underscore style (Data First / Callback Last)
 
+```javascript
 var _ = require('underscore');
 
 var mapFirstTwo = function(data){
@@ -14,29 +17,40 @@ var mapFirstTwo = function(data){
         return _.first(item, 2);
     });
 };
+```
 
-// useFn style
-// 1
-var use = require('useFn');
+### Function First / Data Last style
+
+#### 1. Use Function
+
+```javascript
+var use = require('use-function-first');
 var underscore = require('underscore');
 
 var mapFirstTwo = use(function(map, first){
     return map( first (2));
 }, underscore);
+```
 
-// 2
-var createFn = require('useFn');
-var underscore = require('underscore');
+#### 2. Compose Function
 
-var mapFirstTwo = createFn(['map', 'first', 2], underscore);
+```javascript
+var composeFn = require('use-function-first');
+var _ = require('underscore');
 
-// result
+var mapFirstTwo = composeFn(['map first', 2], _ );
+```
 
+#### Result
+
+```javascript
 mapFirstTwo(["one","two","three"]); // ["on","tw","th"]
+```
 
-// 3
+#### 3. File-system API
 
-var filterFiles = createFn(
+```javascript
+var filterFiles = composeFn(
     'readdir filter filesOnly',
     require('fs'),
     Array, 
