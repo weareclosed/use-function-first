@@ -41,16 +41,19 @@ function use(/** function|string|Array */ what, /** ...object */ fromObject){
 
     function validateNames( names ){
         //todo: names.filter
+        throw new Error("todo..");
     }
 
     function composeMethods( names, object ){
         //todo: return Function( "return " + names.join("(")+ );
+        throw new Error("todo...");
     }
 
     function adaptMethods( names, arrayOfObjects ){
-        return names.map(findPropertyInArrayOfObjectsByName);
+        //console.log(names)
+        return names.map( findProperty );
 
-        function findPropertyInArrayOfObjectsByName( name ){
+        function findProperty( name ){
             var property;
             arrayOfObjects.map( prepareObject ).some( propertyExist );
 
@@ -63,6 +66,7 @@ function use(/** function|string|Array */ what, /** ...object */ fromObject){
             function propertyExist( obj ){
                 if(name in obj){
                     property = obj[ name ];
+                    console.log(name, property)
                     return true;
                 }
             }
