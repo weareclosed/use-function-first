@@ -47,66 +47,70 @@ function use(/** function|string|Array */ what, /** ...object */ fromObject){
         //todo: return Function( "return " + names.join("(")+ );
     }
 
-    function adaptMethods( names, objects ){
-        return names.map(function( name ){
-            return functionFirst( findMethod(name, objects) );
-        });
+    function adaptMethods( names, arrayOfObjects ){
+        return names.map(findPropertyInArrayOfObjectsByName);
+
+        function findPropertyInArrayOfObjectsByName( name ){
+            var property;
+            arrayOfObjects.map( prepareObject ).some( propertyExist );
+
+            return (typeof property === 'function')? functionFirst(property) : property;
+
+            function prepareObject( object ){
+                return ( typeof object === 'function' )? object.prototype : object;
+            }
+
+            function propertyExist( obj ){
+                if(name in obj){
+                    property = obj[ name ];
+                    return true;
+                }
+            }
+        }
     }
-        function findMethod(name, objects){
-            return objects.find( methodByName );
-
-            function methodByName( obj ){
-                var prop = obj[ name ];
-                if(typeof prop === 'function'){
-                    prop = prop.prototype;
+            /** Move last argument to the first place. And curry. */
+            function functionFirst( fn ){
+                switch( fn.length ){
+                    case 0: return fn;
+                    case 1: return curry(fn);
+                    case 2: return curry(function(a,b){
+                        return fn.call(this,      b,a);
+                    });
+                    case 3: return curry(function(a,b,c){
+                        return fn.call(this,      c,a,b);
+                    });
+                    default:return curry(function(){
+                        var last = arguments.length -1;
+                        var args = Array.prototype.slice.call(arguments, 0, last -1);
+                        args.unshift(arguments[last]);
+                        return fn.apply(this, args);
+                    });
                 }
-                return prop;
             }
-        }
 
-        /** Move last argument to the first place. And curry. */
-        function functionFirst( fn ){
-            switch( fn.length ){
-                case 0: return fn;
-                case 1: return curry(fn);
-                case 2: return curry(function(a,b){
-                    return fn.call(this,      b,a);
-                });
-                case 3: return curry(function(a,b,c){
-                    return fn.call(this,      c,a,b);
-                });
-                default:return curry(function(){
-                    var last = arguments.length -1;
-                    var args = Array.prototype.slice.call(arguments, 0, last -1);
-                    args.unshift(arguments[last]);
-                    return fn.apply(this, args);
-                });
-            }
-        }
+                /**
+                 * Curry a function
+                 * @copyright https://github.com/ForbesLindesay/curry/blob/1.0.0/index.js#L12
+                 *
+                 * @param  {function} fn The function you wish to curry
+                 * @return {function}
+                 */
+                function curry( fn ){
+                    return function curried(){
+                        if (arguments.length < fn.length) {
+                            var args = makeArray(arguments);
+                            return function () {
+                                return curried.apply(this, args.concat(makeArray(arguments)));
+                            }
+                        } else {
+                            return fn.apply(this, arguments);
+                        }
+                    };
+                }
 
-        /**
-         * Curry a function
-         * @copyright https://github.com/ForbesLindesay/curry/blob/1.0.0/index.js#L12
-         *
-         * @param  {function} fn The function you wish to curry
-         * @return {function}
-         */
-        function curry( fn ){
-            return function curried(){
-                if (arguments.length < fn.length) {
-                    var args = makeArray(arguments);
-                    return function () {
-                        return curried.apply(this, args.concat(makeArray(arguments)));
+                    function makeArray(args){
+                        return Array.prototype.slice.apply(args);
                     }
-                } else {
-                    return fn.apply(this, arguments);
-                }
-            };
-        }
-
-            function makeArray(args){
-                return Array.prototype.slice.apply(args);
-            }
 
     /**
      * Parses a function and returns an array of its parameters
