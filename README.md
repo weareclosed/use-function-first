@@ -1,5 +1,5 @@
-Use Function First!
--------------------
+Use Function First
+------------------
 
 This is Functional Programming tool to compose data-first/callback-last styled functions.
 
@@ -7,7 +7,7 @@ Inspired by:
 https://thenewcircle.com/s/post/1468/hey_underscore_you_are_doing_it_wrong_brian_lonsdorf  
 https://www.youtube.com/watch?v=m3svKOdZijA
 
-### Underscore style (Data First / Callback Last)
+#### Underscore style (Data First / Callback Last)
 
 ```javascript
 var _ = require('underscore');
@@ -19,9 +19,9 @@ var mapFirstTwo = function(data){
 };
 ```
 
-### Function First / Data Last style
+#### Function First / Data Last style
 
-#### 1. Use Function
+##### 1. Use Function
 
 ```javascript
 var use = require('use-function-first');
@@ -31,8 +31,8 @@ var mapFirstTwo = use(function(map, first){
     return map( first (2));
 }, underscore);
 ```
-
-#### 2. Compose Function
+or 
+##### 2. Compose Function
 
 ```javascript
 var composeFn = require('use-function-first');
@@ -41,13 +41,13 @@ var _ = require('underscore');
 var mapFirstTwo = composeFn(['map first', 2], _ );
 ```
 
-#### Result
+##### Result
 
 ```javascript
 mapFirstTwo(["one","two","three"]); // ["on","tw","th"]
 ```
 
-#### 3. File-system API
+##### 3. File-system API
 
 ```javascript
 var filterFiles = composeFn(
