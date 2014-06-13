@@ -14,4 +14,7 @@ var mapFirstTwo = use(function(map, first){
     }
 });
 
-assert.equal( mapFirstTwo(["123","abc"]), ["12","ab"] );
+assert.equal(
+    mapFirstTwo(["123","abc"]).toString(),
+    ["12","ab"].toString()
+);
