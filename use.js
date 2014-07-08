@@ -66,7 +66,6 @@ function use(/** function|string|Array */ what, /** ...object */ fromObject){
             function propertyExist( obj ){
                 if(name in obj){
                     property = obj[ name ];
-                    console.log(name, property)
                     return true;
                 }
             }
@@ -83,7 +82,10 @@ function use(/** function|string|Array */ what, /** ...object */ fromObject){
                     case 3: return curry(function(a,b,c){
                         return fn.call(this,      c,a,b);
                     });
-                    default:return curry(function(){
+                    case 4: return curry(function(a,b,c,d){
+                        return fn.call(this,      d,a,b,c);
+                    });
+                    default:return curry(function(a,b,c,d,e){
                         var last = arguments.length -1;
                         var args = Array.prototype.slice.call(arguments, 0, last -1);
                         args.unshift(arguments[last]);
